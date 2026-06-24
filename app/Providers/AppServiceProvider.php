@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\CodeService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +16,9 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
         }
+
+        // instance 方法将一个现有的对象实例绑定到容器中
+        $this->app->instance(CodeService::class, new CodeService());
     }
 
     /**
