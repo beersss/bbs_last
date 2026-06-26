@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\CodeService;
 use Illuminate\Support\ServiceProvider;
+use App\Services\SmsInterface;
+use App\Services\TwilioService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
 
         // instance 方法将一个现有的对象实例绑定到容器中
         $this->app->instance(CodeService::class, new CodeService());
+        $this->app->bind(SmsInterface::class, TwilioService::class);
     }
 
     /**

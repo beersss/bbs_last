@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Services\CodeService;
 use Illuminate\Http\Request;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use Illuminate\Support\Facades\Validator;
+use App\Rules\PhoneRule;
+
 
 class CodeController extends Controller
 {
-    function send()
+    public function send(Request $request)
     {
-        // 从 服务容器中解析依赖实例的方式。
-        return app(CodeService::class)->send('11233322');
+        Validator::make(
+            $request->input(),
+            [
+                'phone' => ['required', new PhoneRule()]
+            ],
+        )->validate();
+
+        return app(CodeService::class)->send($request->input('phone'), '短信验证码: ');
     }
 }

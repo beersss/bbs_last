@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/sendCode', [CodeController::class, 'send']);
+Route::post('/send/code', [CodeController::class, 'send']);
